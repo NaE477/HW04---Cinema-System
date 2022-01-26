@@ -144,23 +144,23 @@ public class Utilities {
     }
 
     public int intReceiver() {
-        try {
-            return Integer.parseInt(scanner.nextLine());
-        } catch (NumberFormatException e) {
-            System.out.print("You should enter a number here: ");
-            intReceiver();
+        while(true) {
+            try {
+                return Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.print("You should enter a number here: ");
+            }
         }
-        return 0;
     }
 
     public Double doubleReceiver() {
-        try {
-            return Double.parseDouble(scanner.nextLine());
-        } catch (NumberFormatException e) {
-            System.out.println("You should enter a number here:");
-            doubleReceiver();
+        while(true) {
+            try {
+                return Double.parseDouble(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("You should enter a number here:");
+            }
         }
-        return 0.0;
     }
 
     public int monthReceiver(){
@@ -198,7 +198,7 @@ public class Utilities {
             System.out.print("Hour: ");
             int hour = intReceiver();
             if(hour > 23 || hour < 0){
-                System.out.print("Enter a valid hour: ");
+                System.out.println("Enter a valid hour ");
             }
             else return hour;
         }
@@ -208,7 +208,7 @@ public class Utilities {
             System.out.print("Minute: ");
             int minute = intReceiver();
             if(minute > 59 || minute < 0){
-                System.out.print("Enter a valid minute: ");
+                System.out.println("Enter a valid minute ");
             }
             else return minute;
         }

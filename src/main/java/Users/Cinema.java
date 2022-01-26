@@ -66,11 +66,11 @@ public class Cinema extends User {
             int day = utils.dayReceiver(month + 1);
             int hour = utils.hourReceiver();
             int minute = utils.minuteReceiver();
-            Time start_at = new Time(hour,minute,0);
+            Time start_at = new Time(hour, minute, 0);
             System.out.print("How Many tickets can be sold?: ");
             int quantity = utils.intReceiver();
-            Ticket ticket = new Ticket(movieTitle,new Date(2022-1900,month,day),price,start_at,quantity);
-            ticketService.insertTicket(movieTitle, new Date(2022-1900,month,day), quantity, this.id,price,start_at);
+            Ticket ticket = new Ticket(movieTitle, new Date(2022 - 1900, month, day), price, start_at, quantity);
+            ticketService.insertTicket(movieTitle, new Date(2022 - 1900, month, day), quantity, this.id, price, start_at);
             Thread.sleep(1000);
             utils.printGreen("Ticket added.");
         } else {
@@ -81,21 +81,22 @@ public class Cinema extends User {
 
     private void promoCreation() throws InterruptedException, SQLException {
         utils.clear();
-        if(this.confirmation){
+        if (this.confirmation) {
             PromoService ps = new PromoService();
             System.out.println("Welcome to Promo Code Creation Section.Enter a promo code and then choose what it will do...");
             Thread.sleep(1000);
             System.out.print("Promo Code: ");
             String promoCode = scanner.nextLine();
-            System.out.println("""
+            label:
+            while (true) {
+                System.out.println("""
                     What will the promo do:
                     1-Discount by percent
                     2-Discount by cost
                     3-Add to cost(For Charity Reasons)
+                    4-Exit Promo Creation
                     Option: \040""");
-            String option = scanner.nextLine();
-            label:
-            while (true) {
+                String option = scanner.nextLine();
                 switch (option) {
                     case "1" -> {
                         double amount = utils.percentageReceiver();
@@ -114,11 +115,20 @@ public class Cinema extends User {
                         ps.insert(promoCode, this.id, "CHARITYADD", amount);
                         break label;
                     }
-                    default -> System.out.println("Wrong number!");
+                    case "4" -> {
+                        break label;
+                    }
+                    default -> {
+                        System.out.println("Wrong input!");
+                        try {
+                            Thread.sleep(700);
+                        }catch (InterruptedException e){
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }
-        }
-        else{
+        } else {
             System.out.println("\u001B[31m" + "Your Account has not been confirmed yet." + "\u001B[0m");
             Thread.sleep(1000);
         }

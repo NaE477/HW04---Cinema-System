@@ -61,7 +61,10 @@ public class Customer extends User {
                     viewProfile(super.id);
                 }
             }
-            else break;
+            else {
+                System.out.println("Enter an option from 0 to 6");
+                break;
+            }
         }
         Thread.sleep(1000);
     }
@@ -191,10 +194,10 @@ public class Customer extends User {
 
     private int calculatePromotion(int currentPrice,double amount,String operation){
         return switch (operation) {
-            case "PERCENTAGE" -> currentPrice * (int) amount / 100;
+            case "PERCENTAGE" -> (currentPrice * (100 - (int) amount)) / 100;
             case "SUBTRACT" -> currentPrice - (int) amount;
             case "CHARITYADD" -> currentPrice + (int) amount;
-            default -> 0;
+            default -> currentPrice;
         };
     }
 
